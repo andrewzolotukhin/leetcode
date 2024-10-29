@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00007ReverseInteger", "P00
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00008StringToInteger", "P00008StringToInteger\P00008StringToInteger.csproj", "{228EB4C6-9125-44CF-952F-3ACF51B4C619}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00009PalindromeNumber", "P00009PalindromeNumber\P00009PalindromeNumber.csproj", "{5D0371E6-B0D8-4C68-9F89-70490BED9DED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{228EB4C6-9125-44CF-952F-3ACF51B4C619}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{228EB4C6-9125-44CF-952F-3ACF51B4C619}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{228EB4C6-9125-44CF-952F-3ACF51B4C619}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D0371E6-B0D8-4C68-9F89-70490BED9DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D0371E6-B0D8-4C68-9F89-70490BED9DED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D0371E6-B0D8-4C68-9F89-70490BED9DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D0371E6-B0D8-4C68-9F89-70490BED9DED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
