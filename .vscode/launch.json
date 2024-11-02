@@ -1,0 +1,29 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "coreclr",
+      "request": "launch",
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/P00010RegularExpressionMatching/bin/Debug/net8.0/P00010RegularExpressionMatching.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/P00010RegularExpressionMatching",
+      "stopAtEntry": false
+    }
+  ],
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "projectFolder",
+      "description": "Enter the project folder name (e.g., P00005LongestPalindromicSubstring)"
+    },
+    {
+      "type": "promptString",
+      "id": "executableName",
+      "description": "Enter the executable name (e.g., P00005LongestPalindromicSubstring)"
+    }
+  ]
+}
