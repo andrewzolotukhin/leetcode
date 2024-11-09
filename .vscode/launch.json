@@ -8,7 +8,7 @@
       "type": "coreclr",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/P00010RegularExpressionMatching/bin/Debug/net8.0/P00010RegularExpressionMatching.dll",
+      "program": "${workspaceFolder}/P00014LongestCommonPrefix/bin/Debug/net8.0/P00014LongestCommonPrefix.dll",
       "args": [],
       "cwd": "${workspaceFolder}/P00010RegularExpressionMatching",
       "stopAtEntry": false
