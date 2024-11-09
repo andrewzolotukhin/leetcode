@@ -61,6 +61,5 @@ var intToRoman = function(num) {
 };
 
 for(let i = 1; i< 4000; i++) {
-	console.log(i);
-console.log(intToRoman(i));
+console.log(i, intToRoman(i));
 }
