@@ -29,31 +29,29 @@ public class Solution
 {
 	public static ListNode MergeKLists(ListNode[] lists)
 	{
-		var sorted = new SortedList<Tuple<int, int>, ListNode>();
+		var queue = new PriorityQueue<ListNode, int>();
 
 		for (var i = 0; i < lists.Length; i++)
 		{
 			if (lists[i] is not null)
 			{
-				Console.WriteLine($"{lists[i].val} {i}");
-				sorted.Add(Tuple.Create(lists[i].val, i), lists[i]);
+				// Console.WriteLine($"{lists[i].val} {i}");
+				queue.Enqueue(lists[i], lists[i].val);
 			}
 		}
 
 		var getItem = () =>
 		{
-			if (sorted.Count == 0) return null;
+			if (queue.Count == 0) return null;
 
-			var first = sorted.First();
+			var first = queue.Dequeue();
 
-			sorted.Remove(first.Key);
-
-			if (first.Value.next is not null)
+			if (first.next is not null)
 			{
-				sorted.Add(Tuple.Create(first.Value.next.val, first.Key.Item2), first.Value.next);
+				queue.Enqueue(first.next, first.next.val);
 			}
 
-			return first.Value;
+			return first;
 		};
 
 		var head = getItem();
@@ -69,6 +67,12 @@ public class Solution
 				previous!.next = last;
 			}
 			previous = last;
+			if (queue.Count == 1)
+			{
+				last = getItem();
+				previous!.next = last;
+				return head;
+			}
 		}
 
 		return head;
