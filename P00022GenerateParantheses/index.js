@@ -25,3 +25,9 @@ var generateParenthesis = function (n) {
   work("(", 1, 0);
   return r;
 };
+
+for (let i = 1; i <= 20; i++) {
+  console.time(i.toString());
+  console.log(i, "-", generateParenthesis(i).length);
+  console.timeEnd(i.toString());
+}
