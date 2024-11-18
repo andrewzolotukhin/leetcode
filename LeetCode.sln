@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00024SwapNodesInPairs", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00025ReverseNodesInKGroup", "P00025ReverseNodesInKGroup\P00025ReverseNodesInKGroup.csproj", "{8FC91658-B45C-4BD3-8012-DCD576648115}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00026RemoveDuplicatesFromSortedArray", "P00026RemoveDuplicatesFromSortedArray\P00026RemoveDuplicatesFromSortedArray.csproj", "{9650F41D-85AE-4D31-A09F-D1837FA9629D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,5 +104,9 @@ Global
 		{8FC91658-B45C-4BD3-8012-DCD576648115}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8FC91658-B45C-4BD3-8012-DCD576648115}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FC91658-B45C-4BD3-8012-DCD576648115}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9650F41D-85AE-4D31-A09F-D1837FA9629D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9650F41D-85AE-4D31-A09F-D1837FA9629D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9650F41D-85AE-4D31-A09F-D1837FA9629D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9650F41D-85AE-4D31-A09F-D1837FA9629D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
