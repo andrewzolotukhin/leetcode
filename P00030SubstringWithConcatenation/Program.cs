@@ -1,13 +1,14 @@
-﻿// var res = Solution.FindSubstring("barfoothefoobarman", ["foo", "bar"]);
+﻿var res = Solution.FindSubstring("barfoothefoobarman", ["foo", "bar"]);
 // var res = Solution.FindSubstring("wordgoodgoodgoodbestword", ["word", "good", "best", "word"]);
 // Console.WriteLine("barfoofoobarthefoobarman");
 // Console.WriteLine("bar, foo, the");
 // var res = Solution.FindSubstring("barfoofoobarthefoobarman", ["bar", "foo", "the"]);
 // var res = Solution.FindSubstring("wordgoodgoodgoodbestgoodgoodword", ["good", "good", "word"]);
+// var res = Solution.FindSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", ["fooo", "barr", "wing", "ding", "wing"]);
 
-var s = new string('a', 10000) + string.Concat(Enumerable.Repeat("bc", 15)) + new string('a', 10000);
-var words = new string[] { new string('a', 30), string.Concat(Enumerable.Repeat("bc", 15)) };
-var res = Solution.FindSubstring(s, words);
+// var s = new string('a', 10000) + string.Concat(Enumerable.Repeat("bc", 15)) + new string('a', 10000);
+// var words = new string[] { new string('a', 30), string.Concat(Enumerable.Repeat("bc", 15)) };
+// var res = Solution.FindSubstring(s, words);
 
 foreach (var r in res)
 {
@@ -40,15 +41,29 @@ public class Solution
 
 		for (var i = 0; i < wordLength; i++)
 		{
-			List<string> list = [];
+			List<(string val, int index)> list = [];
+
+			var addedKnown = 0;
 			for (var j = i; j <= s.Length - wordLength; j += wordLength)
 			{
 				var word = s.Substring(j, wordLength);
-				if (!knownWords.ContainsKey(word) && (s.Length - j - wordLength) < matchLength)
+				var exists = knownWords.ContainsKey(word);
+
+				list.Add((word, j));
+
+				if (exists)
 				{
-					break;
+					addedKnown++;
 				}
-				list.Add(word);
+				else
+				{
+					if (addedKnown < words.Length)
+					{
+						list.Clear();
+						addedKnown = 0;
+					}
+					if ((s.Length - j - wordLength) < matchLength) break;
+				}
 			}
 
 			if (list.Count < words.Length) continue;
@@ -60,16 +75,13 @@ public class Solution
 
 			while (right < list.Count)
 			{
-				if (sl.Count < words.Length)
+				if (knownWords.ContainsKey(list[right].val))
 				{
-					if (knownWords.ContainsKey(list[right]))
-					{
-						sl.Add((list[right], right), list[right]);
-					}
-					else
-					{
-						sl.Clear();
-					}
+					sl.Add((list[right].val, right), list[right].val);
+				}
+				else
+				{
+					sl.Clear();
 				}
 
 				right++;
@@ -88,10 +100,10 @@ public class Solution
 
 					if (k == words.Length)
 					{
-						result.Add(i + ((right - words.Length) * wordLength));
+						result.Add(list[right - words.Length].index);
 					}
 
-					sl.Remove((list[right - words.Length], right - words.Length));
+					sl.Remove((list[right - words.Length].val, right - words.Length));
 				}
 			}
 
