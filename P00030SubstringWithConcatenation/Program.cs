@@ -1,14 +1,15 @@
-﻿var res = Solution.FindSubstring("barfoothefoobarman", ["foo", "bar"]);
+﻿// var res = Solution.FindSubstring("barfoothefoobarman", ["foo", "bar"]);
 // var res = Solution.FindSubstring("wordgoodgoodgoodbestword", ["word", "good", "best", "word"]);
 // Console.WriteLine("barfoofoobarthefoobarman");
 // Console.WriteLine("bar, foo, the");
 // var res = Solution.FindSubstring("barfoofoobarthefoobarman", ["bar", "foo", "the"]);
 // var res = Solution.FindSubstring("wordgoodgoodgoodbestgoodgoodword", ["good", "good", "word"]);
 // var res = Solution.FindSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", ["fooo", "barr", "wing", "ding", "wing"]);
+// var res = Solution.FindSubstring("bcabbcaabbccacacbabccacaababcbb", ["c", "b", "a", "c", "a", "a", "a", "b", "c"]);
 
-// var s = new string('a', 10000) + string.Concat(Enumerable.Repeat("bc", 15)) + new string('a', 10000);
-// var words = new string[] { new string('a', 30), string.Concat(Enumerable.Repeat("bc", 15)) };
-// var res = Solution.FindSubstring(s, words);
+var s = new string('a', 10000) + string.Concat(Enumerable.Repeat("bc", 15)) + new string('a', 10000);
+var words = new string[] { new string('a', 30), string.Concat(Enumerable.Repeat("bc", 15)) };
+var res = Solution.FindSubstring(s, words);
 
 foreach (var r in res)
 {
@@ -28,14 +29,11 @@ public class Solution
 
 		if (s.Length < matchLength) return result;
 
-		SortedList<(string, int), string> sortedWords = new();
-		Dictionary<string, bool> knownWords = new();
+		Dictionary<string, int> knownWords = new();
 
-		int l = 0;
 		foreach (var w in words)
 		{
-			sortedWords.TryAdd((w, l++), w);
-			knownWords[w] = true;
+			knownWords[w] = knownWords.ContainsKey(w) ? knownWords[w] + 1 : 1;
 		}
 
 
@@ -68,43 +66,42 @@ public class Solution
 
 			if (list.Count < words.Length) continue;
 
+			var dir = new Dictionary<string, int>();
 
-			var sl = new SortedList<(string, int), string>();
-
-			int right = 0;
-
-			while (right < list.Count)
+			for (var current = 0; current < list.Count; current++)
 			{
-				if (knownWords.ContainsKey(list[right].val))
+				dir[list[current].val] = dir.TryGetValue(list[current].val, out var val) ? val + 1 : 1;
+				if (current >= words.Length - 1)
 				{
-					sl.Add((list[right].val, right), list[right].val);
-				}
-				else
-				{
-					sl.Clear();
-				}
-
-				right++;
-
-				if (sl.Count == words.Length)
-				{
-					var k = 0;
-					foreach ((_, var value) in sl)
+					if (dir.Keys.Count == knownWords.Keys.Count)
 					{
-						if (value != sortedWords.GetValueAtIndex(k))
+						var j = 0;
+						foreach (var (k, v) in dir)
 						{
-							break;
+							if ((!knownWords.ContainsKey(k)) || (knownWords.ContainsKey(k) && knownWords[k] != v))
+							{
+								break;
+							}
+							j++;
 						}
-						k++;
+						if (j == knownWords.Keys.Count)
+						{
+							result.Add(list[current - words.Length + 1].index);
+						}
 					}
 
-					if (k == words.Length)
+					var cv = dir[list[current - words.Length + 1].val];
+
+					if (cv == 1)
 					{
-						result.Add(list[right - words.Length].index);
+						dir.Remove(list[current - words.Length + 1].val);
 					}
-
-					sl.Remove((list[right - words.Length].val, right - words.Length));
+					else
+					{
+						dir[list[current - words.Length + 1].val]--;
+					}
 				}
+
 			}
 
 		}
