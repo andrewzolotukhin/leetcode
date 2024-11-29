@@ -12,6 +12,13 @@
       "args": [],
       "cwd": "${workspaceFolder}/P00010RegularExpressionMatching",
       "stopAtEntry": false
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Node",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/P00039CombinationSum/index.js"
     }
   ],
   "inputs": [
