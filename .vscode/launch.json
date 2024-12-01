@@ -18,7 +18,7 @@
       "request": "launch",
       "name": "Launch Node",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/P00039CombinationSum/index.js"
+      "program": "${workspaceFolder}/P00040CombinationSumII/index.js"
     }
   ],
   "inputs": [
