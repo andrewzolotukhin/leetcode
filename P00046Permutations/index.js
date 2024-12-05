@@ -3,18 +3,27 @@ const permute = (nums) => {
   const result = [];
   const work = (p, r) => {
     if (r.length === 1) {
-      result.push([...p, r[0]]);
+      const res = Array.from(p);
+      res.push(r[0]);
+      result.push(res);
       return;
     }
+
+    const k = Array.from(r);
+    let t = k.shift();
     for (let i = 0; i < r.length; i++) {
-      let n = [...(i === 0 ? [] : r.slice(0, i)), ...r.slice(i + 1)];
-      work([...p, r[i]], n);
+      p.push(r[i]);
+      work(p, k);
+      p.pop();
+      k.push(t);
+      t = k.shift();
     }
   };
-  work([], [...nums]);
+  work([], nums);
 
   return result;
 };
 
-const x = permute([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+const x = permute([1, 2, 3, 4, 5]);
+console.log(x);
 console.log(x.length);
