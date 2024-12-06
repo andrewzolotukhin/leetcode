@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00030SubstringWithConcaten
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00036ValidSudoku", "P00036ValidSudoku\P00036ValidSudoku.csproj", "{422DF834-D648-4F4A-B531-140651765502}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00049GroupAnagrams", "P00049GroupAnagrams\P00049GroupAnagrams.csproj", "{B8B4BC26-170E-4FDE-BF31-AFC2CE48256E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -138,5 +140,9 @@ Global
 		{422DF834-D648-4F4A-B531-140651765502}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{422DF834-D648-4F4A-B531-140651765502}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{422DF834-D648-4F4A-B531-140651765502}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8B4BC26-170E-4FDE-BF31-AFC2CE48256E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B4BC26-170E-4FDE-BF31-AFC2CE48256E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B4BC26-170E-4FDE-BF31-AFC2CE48256E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B4BC26-170E-4FDE-BF31-AFC2CE48256E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
