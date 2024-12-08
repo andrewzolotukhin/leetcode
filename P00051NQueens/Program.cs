@@ -1,24 +1,24 @@
-﻿var input1 = 9;
+﻿var input1 = 15;
 
 var input = input1;
 
 var result = Solution.SolveNQueens(input);
 
-foreach (var item in result)
-{
-	Console.WriteLine("Solution:");
-	foreach (var row in item)
-	{
-		Console.WriteLine(row);
-	}
-	Console.WriteLine();
-}
+// foreach (var item in result)
+// {
+// 	Console.WriteLine("Solution:");
+// 	foreach (var row in item)
+// 	{
+// 		Console.WriteLine(row);
+// 	}
+// 	Console.WriteLine();
+// }
 
 Console.WriteLine(result.Count);
 
 public class Solution
 {
-	public static void Permute(IList<int> items, IList<int> rest, IList<IList<string>> result, HashSet<int> vm, HashSet<int> hm, string[] outS)
+	public static void Permute(IList<int> items, IList<int> rest, IList<IList<string>> result, bool[] vm, bool[] hm, string[] outS)
 	{
 		if (rest.Count == 0)
 		{
@@ -40,7 +40,7 @@ public class Solution
 			var v = items.Count + r;
 			var h = items.Count - r;
 
-			if (vm.Contains(v) || hm.Contains(h))
+			if (vm[100 + v] || hm[100 + h])
 			{
 				continue;
 			}
@@ -51,15 +51,15 @@ public class Solution
 			}
 
 
-			vm.Add(v);
-			hm.Add(h);
+			vm[100 + v] = true;
+			hm[100 + h] = true;
 			items.Add(r);
 			rest.RemoveAt(i);
 			Permute(items, rest, result, vm, hm, outS);
 			rest.Insert(i, r);
 			items.RemoveAt(items.Count - 1);
-			vm.Remove(v);
-			hm.Remove(h);
+			vm[100 + v] = false;
+			hm[100 + h] = false;
 		}
 	}
 
@@ -69,8 +69,8 @@ public class Solution
 
 		var queens = Enumerable.Range(0, n).ToList();
 
-		var vm = new HashSet<int>();
-		var hm = new HashSet<int>();
+		var vm = new bool[300];
+		var hm = new bool[300];
 
 		string[] outS = [.. queens.Select((int q) =>
 		{
