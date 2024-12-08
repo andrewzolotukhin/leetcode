@@ -1,4 +1,4 @@
-﻿var input1 = 10;
+﻿var input1 = 9;
 
 var input = input1;
 
@@ -18,35 +18,48 @@ Console.WriteLine(result.Count);
 
 public class Solution
 {
-	public static void Permute(IList<int> items, IList<int> rest, IList<IList<int>> result)
+	public static void Permute(IList<int> items, IList<int> rest, IList<IList<string>> result, HashSet<int> vm, HashSet<int> hm, string[] outS)
 	{
 		if (rest.Count == 0)
 		{
-			result.Add([.. items]);
+			List<string> rr = [];
+			for (var i = 0; i < items.Count; i++)
+			{
+				// var c = new string('.', items.Count).ToCharArray();
+				// c[items[i]] = 'Q';
+				// rr.Add(string.Join("", c));
+				rr.Add(outS[items[i]]);
+			}
+			result.Add(rr);
 			return;
 		}
 
 		for (var i = 0; i < rest.Count; i++)
 		{
 			var r = rest[i];
-			var x = items.Count + r;
-			var y = items.Count - r;
+			var v = items.Count + r;
+			var h = items.Count - r;
+
+			if (vm.Contains(v) || hm.Contains(h))
+			{
+				continue;
+			}
 
 			if (items.Count > 0 && Math.Abs(items[items.Count - 1] - r) <= 1)
 			{
 				continue;
 			}
 
-			if (items.Select((v, i) => (i + v, i - v, v)).Any(t => t.Item1 == x || t.Item2 == y))
-			{
-				continue;
-			}
 
+			vm.Add(v);
+			hm.Add(h);
 			items.Add(r);
 			rest.RemoveAt(i);
-			Permute(items, rest, result);
+			Permute(items, rest, result, vm, hm, outS);
 			rest.Insert(i, r);
 			items.RemoveAt(items.Count - 1);
+			vm.Remove(v);
+			hm.Remove(h);
 		}
 	}
 
@@ -54,27 +67,19 @@ public class Solution
 	{
 		IList<IList<string>> result = [];
 
-		IList<IList<int>> notFormatedResult = [];
-
 		var queens = Enumerable.Range(0, n).ToList();
 
-		Permute([], queens, notFormatedResult);
+		var vm = new HashSet<int>();
+		var hm = new HashSet<int>();
 
-		foreach (var r in notFormatedResult)
+		string[] outS = [.. queens.Select((int q) =>
 		{
-			var k = r.ToList();
+			var a = new string('.', n).ToCharArray();
+			a[q] = 'Q';
+			return string.Join("", a);
+		})];
 
-			List<string> rr = [];
-
-			for (var i = 0; i < k.Count; i++)
-			{
-				var c = new string('.', n).ToCharArray();
-				c[k[i]] = 'Q';
-				rr.Add(string.Join("", c));
-			}
-
-			result.Add(rr);
-		}
+		Permute([], queens, result, vm, hm, outS);
 
 		return result;
 	}
