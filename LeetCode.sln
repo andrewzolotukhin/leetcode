@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00049GroupAnagrams", "P000
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00043MultiplyStrings", "P00043MultiplyStrings\P00043MultiplyStrings.csproj", "{35E51288-8E42-446A-892E-F600CC8093A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P00051NQueens", "P00051NQueens\P00051NQueens.csproj", "{537BECFE-89B7-4147-A24D-5BFBBA5B7217}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,5 +152,9 @@ Global
 		{35E51288-8E42-446A-892E-F600CC8093A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35E51288-8E42-446A-892E-F600CC8093A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35E51288-8E42-446A-892E-F600CC8093A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{537BECFE-89B7-4147-A24D-5BFBBA5B7217}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{537BECFE-89B7-4147-A24D-5BFBBA5B7217}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{537BECFE-89B7-4147-A24D-5BFBBA5B7217}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{537BECFE-89B7-4147-A24D-5BFBBA5B7217}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
