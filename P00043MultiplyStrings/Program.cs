@@ -99,8 +99,6 @@ for (var i = 0; i < 1000; i++)
 // 	}
 // }
 
-
-
 public class Solution
 {
 	private const long BASE = 10;

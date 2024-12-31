@@ -8,7 +8,7 @@
       "type": "coreclr",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/P00030SubstringWithConcatenation/bin/Debug/net8.0/P00030SubstringWithConcatenation.dll",
+      "program": "${workspaceFolder}/P00043MultiplyStrings/bin/Debug/net8.0/P00043MultiplyStrings.dll",
       "args": [],
       "cwd": "${workspaceFolder}/P00010RegularExpressionMatching",
       "stopAtEntry": false
