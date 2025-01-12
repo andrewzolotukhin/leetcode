@@ -6,47 +6,39 @@
 const canBeValid = (s, locked) => {
   if (s.length % 2 === 1) return false;
 
-  let opened = 0, unlocked = 0;
+  const opened = [];
+  const unlocked = [];
 
   for (let i = 0; i < s.length; i++) {
     if (locked[i] === '1') {
       if (s[i] === '(') {
-        opened++;
+        opened.push(i);
       } else {
-        if (opened > 0) {
-          opened--;
-        } else if (unlocked > 0) {
-          unlocked--;
+        if (opened.length !== 0) {
+          opened.pop();
+        } else if (unlocked.length !== 0) {
+          unlocked.pop();
         } else {
           return false;
         }
       }
     } else {
-      unlocked++;
+      unlocked.push(i);
     }
   }
 
-  let b = 0;
-
-  for (let i = s.length - 1; i >= 0; i--) {
-    if (locked[i] === '0') {
-      b--;
-      unlocked--;
-    } else if (s[i] === '(') {
-      b++;
-      opened--;
-    } else {
-      b--;
-    }
-    if (b > 0) {
-      return false;
-    }
-    if (unlocked == 0 && opened == 0) {
-      break;
+  if (opened.length <= unlocked.length) {
+    while (opened.length) {
+      if (opened[opened.length - 1] < unlocked[unlocked.length - 1]) {
+        opened.pop();
+        unlocked.pop();
+      } else {
+        return false;
+      }
     }
   }
 
-  return opened <= 0;
+  return unlocked.length % 2 === 0;
 };
 
 const t = [
