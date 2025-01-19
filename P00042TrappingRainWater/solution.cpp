@@ -7,26 +7,24 @@ public:
     if (height.size() < 1)
       return 0;
     int result = 0;
-
-    int n = height.size();
-    vector<int> maxL = vector<int>(n), maxR = vector<int>(n);
-
-    maxL[0] = height[0];
-    maxR[n - 1] = height[n - 1];
-
-    for (int i = 1; i < n; i++) {
-      maxL[i] = max(height[i], maxL[i - 1]);
+    int l = 0, r = height.size() - 1;
+    int e = 0, ml = 0, mr = 0;
+    while (l <= r) {
+      if (height[l] < height[r]) {
+        if (height[l] < ml) {
+          e += ml - height[l];
+        }
+        ml = max(ml, height[l]);
+        l++;
+      } else {
+        if (height[r] < mr) {
+          e += mr - height[r];
+        }
+        mr = max(mr, height[r]);
+        r--;
+      }
     }
-
-    for (int i = n - 2; i >= 0; i--) {
-      maxR[i] = max(height[i], maxR[i + 1]);
-    }
-
-    for (int i = 0; i < n; i++) {
-      result += min(maxL[i], maxR[i]) - height[i];
-    }
-
-    return result;
+    return e;
   }
 };
 
