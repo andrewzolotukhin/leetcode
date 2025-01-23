@@ -13,19 +13,16 @@ public:
 
     priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
 
-    int leftToVisit = n * m;
-
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < m; j++) {
         if (isWater[i][j] == 1) {
           result[i][j] = 0;
-          leftToVisit--;
           pq.push({0, i, j});
         }
       }
     }
 
-    while (!pq.empty() && leftToVisit) {
+    while (!pq.empty()) {
       auto v = pq.top();
       pq.pop();
       auto height = v[0];
@@ -38,7 +35,6 @@ public:
 
         if (ni >= 0 && ni < n && nj >= 0 && nj < m && result[ni][nj] == -1) {
           result[ni][nj] = height + 1;
-          leftToVisit--;
           pq.push({height + 1, ni, nj});
         }
       }
