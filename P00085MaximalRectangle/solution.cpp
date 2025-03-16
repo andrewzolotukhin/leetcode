@@ -2,102 +2,56 @@
 using namespace std;
 
 class Solution {
+private:
+  int getMaxArea(vector<int> &hist) {
+    int n = hist.size();
+    stack<pair<int, int>> st;
+    int ans = 0;
+
+    for (int i = 0; i < n; i++) {
+      int curr = hist[i];
+      int index = i;
+      while (!st.empty() && st.top().second > curr) {
+        int ni = st.top().first;
+        ans = max(ans, st.top().second * (i - ni));
+        st.pop();
+        index = ni;
+      }
+      st.push({index, curr});
+    }
+
+    while (!st.empty()) {
+      int ni = st.top().first;
+      int nh = st.top().second;
+      st.pop();
+
+      ans = max(ans, nh * (n - ni));
+    }
+
+    return ans;
+  }
+
 public:
   int maximalRectangle(vector<vector<char>> &matrix) {
-    int N = matrix.size(), M = matrix[0].size();
-    auto dp = vector<vector<pair<int, int>>>(N, vector<pair<int, int>>(M));
-    auto dps = vector<vector<pair<int, int>>>(N, vector<pair<int, int>>(M));
+    int result = 0;
 
-    dp[0][0] = {(matrix[0][0] == '1' ? 1 : 0), (matrix[0][0] == '1' ? 1 : 0)};
-    dps[0][0] = dp[0][0];
+    int n = matrix.size(), m = matrix[0].size();
 
-    int maxW = dps[0][0].second, maxH = dps[0][0].first;
+    vector<int> hist(m, 0);
 
-    for (auto i = 1; i < N; i++) {
-      dp[i][0] = {((matrix[i][0] == '0') ? 0 : 1),
-                  ((matrix[i][0] == '0') ? 0 : (dp[i - 1][0].second + 1))};
-      dps[i][0] = dp[i][0];
-    }
-
-    for (auto i = 1; i < M; i++) {
-      dp[0][i] = {((matrix[0][i] == '0') ? 0 : 1),
-                  ((matrix[0][i] == '0') ? 0 : (dp[0][i - 1].second + 1))};
-      dps[0][i] = dp[0][i];
-    }
-
-    for (int i = 1; i < N; i++) {
-      for (int j = 1; j < M; j++) {
-        dp[i][j] = {
-            (matrix[i][j] == '0') ? 0 : (dp[i - 1][j].first + 1),
-            (matrix[i][j] == '0') ? 0 : (dp[i][j - 1].second + 1),
-        };
-      }
-    }
-
-    for (int i = 1; i < N; i++) {
-      for (int j = 1; j < M; j++) {
-        if (dp[i][j].first == 0 || dp[i][j].second == 0) {
-          dps[i][j] = dp[i][j];
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < m; j++) {
+        if (matrix[i][j] == '1') {
+          hist[j]++;
         } else {
-          int w, h;
-          auto maxAvW = dp[i][j].second;
-          auto prevMaxW = dps[i - 1][j - 1].second;
-          auto maxAvH = dp[i][j].first;
-          auto prevMaxH = dps[i - 1][j - 1].first;
-
-          w = max(min(prevMaxW + 1, maxAvW), 1);
-          h = max(min(prevMaxH + 1, maxAvH), 1);
-
-          if (w * h > maxAvW && w * h > maxAvH) {
-            dps[i][j] = {w, h};
-          } else {
-            if (maxAvW > maxAvH) {
-              dps[i][j] = {1, maxAvW};
-            } else {
-              dps[i][j] = {maxAvH, 1};
-            }
-          }
-        }
-
-        if (dps[i][j].first * dps[i][j].second > maxW * maxH) {
-          maxH = dps[i][j].first;
-          maxW = dps[i][j].second;
+          hist[j] = 0;
         }
       }
+
+      result = max(result, getMaxArea(hist));
     }
 
-    cout << "DPw:\n";
-    for (int i = 0; i < N; i++) {
-      for (int j = 0; j < M; j++) {
-        cout << dp[i][j].second << " ";
-      }
-      cout << '\n';
-    }
-    cout << "DPh:\n";
-    for (int i = 0; i < N; i++) {
-      for (int j = 0; j < M; j++) {
-        cout << dp[i][j].first << " ";
-      }
-      cout << '\n';
-    }
-
-    cout << "DPsw:\n";
-    for (int i = 0; i < N; i++) {
-      for (int j = 0; j < M; j++) {
-        cout << dps[i][j].second << " ";
-      }
-      cout << '\n';
-    }
-
-    cout << "DPsh:\n";
-    for (int i = 0; i < N; i++) {
-      for (int j = 0; j < M; j++) {
-        cout << dps[i][j].first << " ";
-      }
-      cout << '\n';
-    }
-
-    return maxW * maxH;
+    return result;
   }
 };
 
