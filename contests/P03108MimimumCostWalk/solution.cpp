@@ -1,54 +1,47 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
 class Solution {
+private:
+  int find(vector<int> &parents, int v) {
+    if (parents[v] == -1)
+      return v;
+
+    parents[v] = find(parents, parents[v]);
+    return parents[v];
+  }
+  void Union(vector<int> &parents, int v1, int v2) {
+    int pv1 = find(parents, v1);
+    int pv2 = find(parents, v2);
+    if (pv1 == pv2)
+      return;
+
+    parents[pv2] = pv1;
+  }
+
 public:
   vector<int> minimumCost(int n, vector<vector<int>> &edges,
                           vector<vector<int>> &queries) {
-    vector<int> components(n, -1);
-    vector<int> depth(n, 0);
+    vector<int> parents(n, -1);
+    vector<unsigned int> componentCost(n, (unsigned int)(-1));
 
-    vector<unsigned int> componentCost(n, -1);
-
-    for (auto &edge : edges) {
-      Union(components, depth, edge[0], edge[1]);
+    for (auto edge : edges) {
+      int f = edge[0];
+      int t = edge[1];
+      int c = edge[2];
+      Union(parents, f, t);
+      int component = find(parents, f);
+      componentCost[component] &= c;
     }
 
-    for (auto &edge : edges) {
-      int root = find(components, edge[0]);
-      componentCost[root] &= edge[2];
+    vector<int> ans(queries.size());
+    for (int q = 0; q < queries.size(); q++) {
+      int c1 = find(parents, queries[q][0]);
+      int c2 = find(parents, queries[q][1]);
+      ans[q] = (c1 == c2) ? componentCost[c1] : -1;
     }
 
-    vector<int> answer;
-    for (auto &query : queries) {
-      int start = query[0];
-      int end = query[1];
-
-      // If the two nodes are in different connected components, return -1
-      if (find(components, start) != find(components, end)) {
-        answer.push_back(-1);
-      } else {
-        int root = find(components, start);
-        answer.push_back(componentCost[root]);
-      }
-    }
-    return answer;
-  }
-
-private:
-  int find(vector<int> &components, int node) {
-    if (components[node] == -1)
-      return node;
-    return components[node] = find(components, components[node]);
-  }
-
-  void Union(vector<int> &components, vector<int> &depth, int node1,
-             int node2) {
-    int root1 = find(components, node1);
-    int root2 = find(components, node2);
-    if (root1 == root2)
-      return;
-    if (depth[root1] < depth[root2])
-      swap(root1, root2);
-    components[root2] = root1;
-    if (depth[root1] == depth[root2])
-      depth[root1]++;
+    return ans;
   }
 };
