@@ -6,15 +6,17 @@ public:
 
         for (int i = 0, k = 1; i < n; i++) {
             for (int j = 0; j < m; j++, k++) {
-                prefix[k] = (prefix[k - 1] * (grid[i][j] % 12345)) % 12345;
+                int val = grid[i][j] % 12345;
+                prefix[k] = (prefix[k - 1] * val) % 12345;
             }
         }
 
-        vector<vector<int>> ans(n, vector<int>(m, 0));
+        vector<vector<int>> ans(n, vector<int>(m,0));
 
-        for (int i = n * m - 1; i >= 0; i--) {
+        for (int i = n*m - 1; i >= 0; i--) {
             int r = i / m, c = i % m;
-            postfix[i] = (postfix[i + 1] * (grid[r][c] % 12345)) % 12345;
+            int val = grid[r][c] % 12345;
+            postfix[i] = (postfix[i + 1] * val) % 12345;
         }
 
         for (int i = 0, l = 1; i < n; i++) {
