@@ -1,0 +1,14 @@
+class Solution {
+public:
+        std::vector<int> targetIndices(const std::span<int> nums, int target) {
+        std::ranges::sort(nums);
+
+        auto it = std::ranges::lower_bound(nums, target);
+        std::vector<int> res{};
+        for(it; it != nums.end() && *it == target; ++it){
+            res.push_back(std::distance(nums.begin(), it));
+        }
+
+        return res;
+    }
+};
